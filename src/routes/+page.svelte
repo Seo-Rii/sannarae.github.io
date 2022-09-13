@@ -12,4 +12,4 @@
         <h2 style="font-weight: 300;">학습의 즐거움을 함께하고 생활을 나누는 마을학교입니다.</h2>
     </div>
 </Container>
-<a href="/mastar">마스타</a>
+<a href="/mastar">마스타 바로가기</a>
