@@ -1,5 +1,5 @@
 <script lang="ts">
-    import Nav from '$lib/nav.svelte'
+    import Nav from '$lib/Nav.svelte'
     import {page} from '$app/stores'
 
     let scrollY, path = [];
