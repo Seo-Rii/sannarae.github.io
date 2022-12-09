@@ -9,7 +9,7 @@
     export let data, info;
     let group = data.params.group, name = data.params.name;
     let clientWidth, clientHeight, width, height;
-    let page = 0, maxPage = 1, images = [], ratio = 1;
+    let page = 0, maxPage = 1, ratio = 1;
 
     $: {
         let _width = clientWidth - 90, _height = clientHeight;
@@ -25,22 +25,12 @@
     onMount(async () => {
         const info = await getOne(group, name);
         maxPage = info.pages / 2;
-
-        images.push('');
-        for (let i = 0; i < info.pages; i++) {
-            const image = await fetch(`/work/${group}/${name}/${i}.png`).then(res => res.blob()).then(blob => URL.createObjectURL(blob));
-            images.push(image);
-        }
-        images.push('');
-
-        const sampleImage = images[1];
+        const sampleImage = `/work/${group}/${name}/0.png`;
         const img = new Image();
         img.src = sampleImage;
         img.onload = () => {
-            ratio = img.width / img.height * 2;
+            ratio = img.naturalWidth / img.naturalHeight * 2;
         }
-
-        images = images;
     });
 
     $: if (page < 0) page = 0;
@@ -56,8 +46,8 @@
     <main bind:clientWidth bind:clientHeight>
         <IconButton icon="chevron_left" on:click={()=>page -= 1} disabled={page===0}/>
         <div style:width="{width}px" style:height="{height}px">
-            <div class="image" style="background-image: url({images[page * 2]});"></div>
-            <div class="image" style="background-image: url({images[page * 2 + 1]});"></div>
+            <div class="image" style="background-image: url('/work/{group}/{name}/{page * 2 - 1}.png');"></div>
+            <div class="image" style="background-image: url('/work/{group}/{name}/{page * 2}.png');"></div>
         </div>
         <IconButton icon="chevron_right" on:click={()=>page += 1} disabled={page===maxPage}/>
     </main>
@@ -79,6 +69,8 @@
       justify-content: space-between;
       align-items: center;
       background-size: contain;
+      background-repeat: no-repeat;
+      background-position: center;
 
       .image {
         width: 50%;
