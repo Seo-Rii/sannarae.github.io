@@ -1,5 +1,5 @@
 <script lang="ts">
-    import Ripple from "$components/Ripple.svelte";
+    import {Ripple} from "nunui";
 
     export let blur = true;
 </script>
@@ -7,10 +7,6 @@
 <style lang="scss">
   main {
     padding: 10px;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
     background: #99999922;
     border-radius: 10px;
     overflow: hidden;
@@ -24,13 +20,20 @@
       -webkit-backdrop-filter: blur(10px);
     }
 
-    & > :global(p) {
-      margin: 10px 0;
-      font-weight: 700;
-    }
+    & > div {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
 
-    & > * {
-      margin: 5px;
+      & > :global(p) {
+        margin: 10px 0;
+        font-weight: 700;
+      }
+
+      & > :global(*) {
+        margin: 5px;
+      }
     }
 
     &:hover {
@@ -48,6 +51,8 @@
 </style>
 
 <main class:blur>
-    <slot/>
+    <div>
+        <slot/>
+    </div>
     <Ripple primary={false}/>
 </main>
