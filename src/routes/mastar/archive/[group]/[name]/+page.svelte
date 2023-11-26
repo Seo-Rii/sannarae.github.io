@@ -6,10 +6,11 @@
     import Region from "$components/Region.svelte";
     import {getOne} from "$lib/get";
 
-    export let data, info;
+    export let data;
+    let info;
     let group = data.params.group, name = data.params.name;
     let clientWidth, clientHeight, width, height;
-    let page = 0, maxPage = 1, ratio = 1;
+    let page = 0, maxPage = 1, ratio = 1, prefix = '';
 
     $: {
         let _width = clientWidth - 90, _height = clientHeight;
@@ -25,7 +26,8 @@
     onMount(async () => {
         const info = await getOne(group, name);
         maxPage = info.pages / 2;
-        const sampleImage = `/work/${group}/${name}/0.png`;
+        prefix = info.prefix || '';
+        const sampleImage = `/work/${group}/${name}/${prefix || ''}0.png`;
         const img = new Image();
         img.src = sampleImage;
         img.onload = () => {
@@ -46,8 +48,8 @@
     <main bind:clientWidth bind:clientHeight>
         <IconButton icon="chevron_left" on:click={()=>page -= 1} disabled={page===0}/>
         <div style:width="{width}px" style:height="{height}px">
-            <div class="image" style="background-image: url('/work/{group}/{name}/{page * 2 - 1}.png');"></div>
-            <div class="image" style="background-image: url('/work/{group}/{name}/{page * 2}.png');"></div>
+            <div class="image" style="background-image: url('/work/{group}/{name}/{prefix}{page * 2 - 1}.png');"></div>
+            <div class="image" style="background-image: url('/work/{group}/{name}/{prefix}{page * 2}.png');"></div>
         </div>
         <IconButton icon="chevron_right" on:click={()=>page += 1} disabled={page===maxPage}/>
     </main>

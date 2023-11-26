@@ -15,9 +15,9 @@
   "devDependencies": {
     "@sveltejs/adapter-auto": "1.0.0-next.90",
     "@sveltejs/kit": "1.0.0-next.577",
-    "node-sass": "^8.0.0",
     "prettier": "^2.8.1",
     "prettier-plugin-svelte": "^2.8.1",
+    "sass": "^1.69.5",
     "svelte": "^3.54.0",
     "svelte-check": "^2.10.2",
     "svelte-preprocess": "^4.10.7",
